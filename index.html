@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptTalk</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <!-- Login/Signup Section -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-box">
+            <h1>CryptTalk</h1>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p class="forgot-password">Forgot Password?</p>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form hidden">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required minlength="6">
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required minlength="6">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Setup Section -->
+    <div id="profile-setup" class="profile-setup hidden">
+        <div class="profile-setup-box">
+            <h2>Complete Your Profile</h2>
+            <div class="profile-image-container">
+                <img id="profile-preview" src="assets/default-profile.png" alt="Profile">
+                <input type="file" id="profile-upload" accept="image/*">
+                <label for="profile-upload" class="upload-btn">
+                    <i class="fas fa-camera"></i>
+                </label>
+            </div>
+            <input type="text" id="username-input" placeholder="Choose a username" required>
+            <button id="complete-profile">Complete Setup</button>
+        </div>
+    </div>
+
+    <!-- Main Chat Interface -->
+    <div id="main-container" class="main-container hidden">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img id="user-profile" src="" alt="Your Profile">
+                <div class="header-icons">
+                    <i class="fas fa-moon theme-toggle"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search or start new chat">
+            </div>
+            
+            <div class="users-list">
+                <!-- Users will be populated here -->
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <img src="" alt="User Profile">
+                    <span class="chat-username">Select a chat</span>
+                </div>
+                <div class="chat-actions">
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+            
+            <div class="messages-container">
+                <!-- Messages will be populated here -->
+            </div>
+            
+            <div class="message-input-container">
+                <i class="far fa-smile emoji-btn"></i>
+                <input type="text" placeholder="Type a message">
+                <i class="fas fa-paperclip attachment-btn"></i>
+                <i class="fas fa-paper-plane send-btn"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav hidden">
+        <div class="nav-item active" data-tab="chats">
+            <i class="fas fa-comments"></i>
+            <span>Chats</span>
+        </div>
+        <div class="nav-item" data-tab="status">
+            <i class="fas fa-circle"></i>
+            <span>Status</span>
+        </div>
+        <div class="nav-item" data-tab="settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </div>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+    <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
