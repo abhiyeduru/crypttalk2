@@ -145,9 +145,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Profile setup
-    document.getElementById('complete-profile').addEventListener('click', () => {
-        // Add your profile setup logic here
+    document.getElementById('complete-profile').addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username-input').value;
+        const profileImage = document.getElementById('profile-preview').src;
+        
+        if (!username.trim()) {
+            alert('Please enter a username');
+            return;
+        }
+        
+        try {
+            // Save the user profile data to your database here
+            await firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).update({
+                username: username,
+                profileImage: profileImage
+            });
+            
+            // Hide profile setup and show main container
+            document.getElementById('profile-setup').classList.add('hidden');
+            document.getElementById('main-container').classList.remove('hidden');
+            document.querySelector('.bottom-nav').classList.remove('hidden');
+            
+            // Update the sidebar profile picture
+            document.getElementById('user-profile').src = profileImage;
+            
+            // Load initial chat data
+            loadChats();
+            
+        } catch (error) {
+            console.error('Error saving profile:', error);
+            alert('Error saving profile. Please try again.');
+        }
     });
+
+    // Add this function to load chats
+    function loadChats() {
+        // Implement your chat loading logic here
+        // This function should populate the users-list
+        const usersList = document.querySelector('.users-list');
+        // Add your code to fetch and display users/chats
+    }
 
     // Initialize with default profile image
     document.getElementById('profile-preview').src = 'default-profile.png';
