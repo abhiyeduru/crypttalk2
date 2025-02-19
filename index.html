@@ -58,13 +58,20 @@
             <div class="sidebar-header">
                 <img id="user-profile" src="" alt="Your Profile">
                 <div class="header-icons">
+                    <i class="fas fa-search search-toggle"></i>
                     <i class="fas fa-moon theme-toggle"></i>
                     <i class="fas fa-ellipsis-v"></i>
                 </div>
             </div>
-            
-            <div class="search-container">
-                <input type="text" placeholder="Search or start new chat">
+
+            <div class="search-overlay hidden">
+                <div class="search-header">
+                    <i class="fas fa-arrow-left search-back"></i>
+                    <input type="text" placeholder="Search users..." class="search-input">
+                </div>
+                <div class="search-results">
+                    <!-- Search results will be populated here -->
+                </div>
             </div>
             
             <div class="users-list">
@@ -80,9 +87,14 @@
                     <span class="chat-username">Select a chat</span>
                 </div>
                 <div class="chat-actions">
-                    <i class="fas fa-video"></i>
-                    <i class="fas fa-phone"></i>
-                    <i class="fas fa-ellipsis-v"></i>
+                    <button class="clear-chat-btn" title="Clear Chat">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <div class="chat-buttons">
+                        <i class="fas fa-video"></i>
+                        <i class="fas fa-phone"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
                 </div>
             </div>
             
@@ -92,7 +104,7 @@
             
             <div class="message-input-container">
                 <i class="far fa-smile emoji-btn"></i>
-                <input type="text" placeholder="Type a message">
+                <input type="text" placeholder="Type a message" autofocus>
                 <i class="fas fa-paperclip attachment-btn"></i>
                 <i class="fas fa-paper-plane send-btn"></i>
             </div>
@@ -114,6 +126,68 @@
             <span>Settings</span>
         </div>
     </nav>
+
+    <!-- Settings Page -->
+    <div id="settings-page" class="settings-page hidden">
+        <div class="settings-header">
+            <i class="fas fa-arrow-left" id="settings-back"></i>
+            <h2>Settings</h2>
+        </div>
+        
+        <div class="current-user-profile">
+            <img id="settings-profile-img" src="" alt="Your Profile">
+            <h3 id="settings-username"></h3>
+            <p id="settings-email"></p>
+            <button class="edit-profile-btn">Edit Profile</button>
+        </div>
+
+        <div class="settings-sections">
+            <div class="settings-section">
+                <h4>Appearance</h4>
+                <div class="setting-item">
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Chat Settings</h4>
+                <div class="setting-item">
+                    <span>Message Notifications</span>
+                    <label class="switch">
+                        <input type="checkbox" id="notifications-switch" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Send Read Receipts</span>
+                    <label class="switch">
+                        <input type="checkbox" id="read-receipts-switch" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Privacy</h4>
+                <div class="setting-item">
+                    <span>Show Online Status</span>
+                    <label class="switch">
+                        <input type="checkbox" id="online-status-switch" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <button id="logout-btn" class="logout-button">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </button>
+    </div>
 
     <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>

@@ -185,9 +185,15 @@ body.dark-mode {
 
 /* Chat Area Styles */
 .chat-area {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    flex: 1;
+    background-color: var(--chat-bg-light);
+}
+
+.dark-mode .chat-area {
+    background-color: var(--chat-bg-dark);
 }
 
 .chat-header {
@@ -204,10 +210,25 @@ body.dark-mode {
     border-bottom-color: #2a3942;
 }
 
+.chat-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
 .messages-container {
     flex: 1;
     padding: 1rem;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background-color: var(--chat-bg-light);
 }
 
@@ -216,15 +237,15 @@ body.dark-mode {
 }
 
 .message {
-    max-width: 65%;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border-radius: 7.5px;
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 8px;
     position: relative;
+    word-wrap: break-word;
 }
 
 .message.outgoing {
-    margin-left: auto;
+    align-self: flex-end;
     background-color: var(--message-out-light);
 }
 
@@ -233,7 +254,7 @@ body.dark-mode {
 }
 
 .message.incoming {
-    margin-right: auto;
+    align-self: flex-start;
     background-color: var(--message-in-light);
 }
 
@@ -241,25 +262,50 @@ body.dark-mode {
     background-color: var(--message-in-dark);
 }
 
-/* Message Input Styles */
+.message-content {
+    position: relative;
+}
+
+.message-content p {
+    margin: 0;
+    padding-right: 45px;
+}
+
+.message-time {
+    position: absolute;
+    bottom: -18px;
+    right: 0;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Message Input Container Styles */
 .message-input-container {
     padding: 1rem;
     background-color: var(--background-light);
     display: flex;
     align-items: center;
     gap: 1rem;
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 4rem;
 }
 
 .dark-mode .message-input-container {
     background-color: var(--background-dark);
+    border-top-color: #2a3942;
 }
 
 .message-input-container input {
     flex: 1;
-    padding: 0.8rem;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: var(--chat-bg-light);
+    font-size: 1rem;
+    outline: none;
 }
 
 .dark-mode .message-input-container input {
@@ -269,12 +315,13 @@ body.dark-mode {
 
 .message-input-container i {
     cursor: pointer;
-    font-size: 1.2rem;
-    color: #54656f;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    padding: 8px;
 }
 
-.dark-mode .message-input-container i {
-    color: #aebac1;
+.message-input-container i:hover {
+    color: var(--secondary-color);
 }
 
 /* Bottom Navigation Styles */
@@ -332,4 +379,322 @@ body.dark-mode {
     .bottom-nav {
         display: flex;
     }
+}
+
+/* Users List Styles */
+.users-list {
+    overflow-y: auto;
+    height: calc(100% - 120px);
+    padding: 10px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-item:hover {
+    background-color: var(--chat-bg-light);
+}
+
+.dark-mode .user-item:hover {
+    background-color: var(--chat-bg-dark);
+}
+
+.user-item.active {
+    background-color: var(--chat-bg-light);
+}
+
+.dark-mode .user-item.active {
+    background-color: var(--chat-bg-dark);
+}
+
+.user-item img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.user-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.user-info .user-status {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.user-info .last-message {
+    font-size: 13px;
+    color: #666;
+    margin: 2px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dark-mode .user-info h4 {
+    color: var(--text-dark);
+}
+
+.dark-mode .user-info .user-status,
+.dark-mode .user-info .last-message {
+    color: #aaa;
+}
+
+/* Search Overlay Styles */
+.search-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-light);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-mode .search-overlay {
+    background-color: var(--background-dark);
+}
+
+.search-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: var(--primary-color);
+}
+
+.search-header i {
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-result-item:hover {
+    background-color: var(--chat-bg-light);
+}
+
+.dark-mode .search-result-item:hover {
+    background-color: var(--chat-bg-dark);
+}
+
+/* Remove old search container styles */
+.search-container {
+    display: none;
+}
+
+/* Settings Page Styles */
+.settings-page {
+    padding-bottom: 80px; /* Add space for logout button */
+}
+
+/* Logout Button Styles */
+.logout-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 400px;
+    padding: 15px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logout-button:hover {
+    background: #ff6666;
+}
+
+.logout-button i {
+    font-size: 18px;
+}
+
+.dark-mode .logout-button {
+    background: #dc3545;
+}
+
+.dark-mode .logout-button:hover {
+    background: #c82333;
+}
+
+/* Add these styles */
+
+.chat-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.clear-chat-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.clear-chat-btn:hover {
+    background-color: rgba(255, 68, 68, 0.1);
+}
+
+/* Settings Styles */
+.settings-sections {
+    padding: 0 1rem;
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+    background: var(--container-bg);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.edit-profile-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-profile-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Dark mode adjustments */
+.dark-mode .settings-section {
+    background: var(--background-dark);
+}
+
+.dark-mode .setting-item {
+    border-bottom-color: #2a3942;
 }
