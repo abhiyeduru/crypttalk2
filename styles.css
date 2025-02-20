@@ -224,7 +224,7 @@ body.dark-mode {
 
 .messages-container {
     flex: 1;
-    padding: 1rem;
+    padding: 4rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
