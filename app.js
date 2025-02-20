@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBack = document.querySelector('.search-back');
     const searchInput = document.querySelector('.search-input');
     const searchResults = document.querySelector('.search-results');
+    const profileUpload = document.getElementById('profile-upload');
+    const profilePreview = document.getElementById('profile-preview');
+    const usernameInput = document.getElementById('username-input');
 
     // Auth tabs functionality
     const authTabs = document.querySelectorAll('.auth-tab');
@@ -993,3 +996,85 @@ async function requestNotificationPermission() {
         console.error('Error requesting notification permission:', error);
     }
 }
+
+// Add profile image upload handler
+profileUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            profilePreview.src = e.target.result;
+            profilePreview.parentElement.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Username validation
+usernameInput.addEventListener('input', (e) => {
+    const username = e.target.value;
+    const isValid = /^[a-zA-Z0-9\s]{3,30}$/.test(username);
+    
+    if (!isValid) {
+        usernameInput.classList.add('invalid');
+    } else {
+        usernameInput.classList.remove('invalid');
+    }
+});
+
+// Update the complete profile handler
+document.getElementById('complete-profile').addEventListener('click', async (e) => {
+    e.preventDefault();
+    
+    const username = usernameInput.value.trim();
+    const profileImage = profilePreview.src;
+    
+    if (!username) {
+        showError('Please enter a username');
+        usernameInput.classList.add('invalid');
+        return;
+    }
+    
+    if (username.length < 3) {
+        showError('Username must be at least 3 characters long');
+        return;
+    }
+    
+    try {
+        const button = e.target;
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Setting up...';
+        
+        await firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).set({
+            username: username,
+            profileImage: profileImage,
+            isOnline: true,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        // Show success message
+        const successMsg = document.querySelector('.setup-success');
+        successMsg.classList.add('show');
+        
+        setTimeout(() => {
+            successMsg.classList.remove('show');
+            document.getElementById('profile-setup').classList.add('hidden');
+            document.getElementById('main-container').classList.remove('hidden');
+            document.querySelector('.bottom-nav').classList.remove('hidden');
+            
+            // Update UI
+            document.getElementById('user-profile').src = profileImage;
+            
+            // Load chats
+            loadChats();
+        }, 1500);
+        
+    } catch (error) {
+        console.error('Error saving profile:', error);
+        showError('Error saving profile. Please try again.');
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-check-circle"></i> Complete Setup';
+    }
+});
+
+// ...existing code...

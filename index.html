@@ -42,12 +42,29 @@
             <div class="profile-image-container">
                 <img id="profile-preview" src="assets/default-profile.png" alt="Profile">
                 <input type="file" id="profile-upload" accept="image/*">
-                <label for="profile-upload" class="upload-btn">
+                <label for="profile-upload" class="upload-btn" title="Upload Profile Picture">
                     <i class="fas fa-camera"></i>
                 </label>
             </div>
-            <input type="text" id="username-input" placeholder="Choose a username" required>
-            <button id="complete-profile">Complete Setup</button>
+            <div class="setup-form">
+                <input type="text" id="username-input" 
+                    placeholder="Choose a username" 
+                    maxlength="30" 
+                    required>
+                <div class="username-requirements">
+                    <p>Username should be:</p>
+                    <ul>
+                        <li>At least 3 characters long</li>
+                        <li>No special characters</li>
+                        <li>Spaces are allowed</li>
+                    </ul>
+                </div>
+                <button id="complete-profile">
+                    <i class="fas fa-check-circle"></i>
+                    Complete Setup
+                </button>
+            </div>
+            <div class="error-message"></div>
         </div>
     </div>
 
@@ -196,5 +213,7 @@
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="firebase-config.js"></script>
     <script src="app.js"></script>
+
+    <div class="setup-success">Profile created successfully! 🎉</div>
 </body>
 </html>
